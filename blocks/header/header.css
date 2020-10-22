@@ -1,0 +1,15 @@
+.header {
+  min-height: 74px;
+  width: calc(100% - 400px);
+  margin: 0 auto;
+  margin-top: 40px;
+  border-bottom: 1px solid #545454;
+}
+
+@media (max-width: 767px) {
+  .header {
+    width: 100%;
+    border-bottom: 1px solid #545454;
+    margin-top: 0;
+  }
+}

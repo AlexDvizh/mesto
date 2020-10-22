@@ -1,0 +1,24 @@
+.elements {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px 20px;
+  width: calc(100% - 400px);
+  margin: 0 auto;
+  margin-top: 51px;
+}
+
+@media (max-width: 1023px) {
+  .elements {
+    grid-template-columns: 1fr 1fr;
+    width: calc(100% - 200px);
+  }
+}
+
+@media (max-width: 767px) {
+  .elements {
+    grid-template-columns: 1fr;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+  }
+}
+
