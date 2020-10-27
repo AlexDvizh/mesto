@@ -19,11 +19,11 @@
 @import url('../blocks/profile/__button-wrap/profile__button-wrap.css');
 
 @import url('../blocks/elements/elements.css');
-@import url('../blocks/elements/element/element.css');
-@import url('../blocks/elements/element/__desc-like/element__desc-like.css');
-@import url('../blocks/elements/element/__desc-title/element__desc-title.css');
-@import url('../blocks/elements/element/__desc/element__desc.css');
-@import url('../blocks/elements/element/__photo/element__photo.css');
+@import url('../blocks/elements/__wrap/element__wrap.css');
+@import url('../blocks/elements/__desc-like/element__desc-like.css');
+@import url('../blocks/elements/__desc-title/element__desc-title.css');
+@import url('../blocks/elements/__desc/element__desc.css');
+@import url('../blocks/elements/__photo/element__photo.css');
 
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');
