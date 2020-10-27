@@ -8,3 +8,7 @@
   border: none;
   margin-left: 35px;
 }
+
+.element__desc-like:hover {
+  opacity: 0.2;
+}

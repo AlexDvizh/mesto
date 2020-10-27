@@ -9,6 +9,7 @@
   border: 1px solid #FFFFFF;
 }
 
-.profile__edit-button:hover {  
+.profile__edit-button:hover {
+  opacity: 0.6; 
 }
 

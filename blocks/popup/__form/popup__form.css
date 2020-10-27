@@ -1,0 +1,12 @@
+.popup__form {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 76px);
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .popup__form {
+    width: calc(100% - 44px);
+  }
+}

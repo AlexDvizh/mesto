@@ -11,9 +11,7 @@
 }
 
 .profile__add-button:hover {
-  border: 2px solid rgba(255, 255, 255, 0.6);
-  box-sizing: border-box;
-  border-radius: 2px;
+  opacity: 0.6;
 }
 
 @media (max-width: 1023px) {
