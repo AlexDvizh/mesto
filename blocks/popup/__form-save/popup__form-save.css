@@ -7,14 +7,18 @@
   font-size: 18px;
   line-height: 22px;
   border: none;
+  border-radius: 2px;
 }
 
 .popup__form-save:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
   .popup__form-save {
     margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

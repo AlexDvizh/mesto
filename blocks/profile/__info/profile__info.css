@@ -3,7 +3,7 @@
   grid-template-columns: 300px 1fr;
   gap: 16px;
   max-width: 336px;
-  margin-right: 246px;
+  align-items: center;
 }
 
 @media (max-width: 1023px) {
@@ -15,7 +15,6 @@
 
 @media (max-width: 767px) {
   .profile__info {
-    margin-right: 0;
     grid-template-columns: 200px 1fr;
     gap: 0;
     justify-content: center;

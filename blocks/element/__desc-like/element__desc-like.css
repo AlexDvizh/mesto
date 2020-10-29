@@ -1,8 +1,5 @@
 .element__desc-like {
   background-color: white;
-  background-image: url(../../../images/Vector-heart.png);
-  background-repeat: no-repeat;
-  background-position: center;
   width: 25px;
   height: 20px;
   border: none;
@@ -11,4 +8,5 @@
 
 .element__desc-like:hover {
   opacity: 0.5;
+  cursor: pointer;
 }

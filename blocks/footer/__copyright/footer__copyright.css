@@ -3,11 +3,16 @@
   font-size: 18px;
   line-height: 22px;
   color: #545454;
+  margin: 0;
+  margin-top: 67px;
+  margin-bottom: 60px;
 }
 
 @media (max-width: 767px) {
-  .profile__add-button {
+  .footer__copyright {
     font-size: 14px;
     line-height: 17px;
+    margin-top: 48px;
+    margin-bottom: 36px;
   }
 }

@@ -9,7 +9,7 @@
 <body class="page">
   <div class="root">
     <header class="header">
-      <img class="header__logo" src="./images/logo-min.png" alt="Логотип Место">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип Место">
     </header>
 
     <main class="main">
@@ -17,57 +17,55 @@
         <img class="profile__avatar" src="./images/kusto-min.jpg" alt="Фото Кусто">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <div class="profile__button-wrap">
-            <button type="button" class="profile__edit-button"></button> 
-          </div>
+          <button aria-label="Редактировать" type="button" class="profile__edit-button"><img src="./images/pen.svg" alt="Иконка ручки"></button> 
           <p class="profile__subtitle">Исследователь океана</p> 
         </div>
-        <button src="./images/Vector-plus.png" title="+" type="button" class="profile__add-button"></button>
+        <button aria-label="Добавить фото" title="+" type="button" class="profile__add-button"><img src="./images/plus.svg" alt="Иконка плюса"></button>
       </section>
 
       <section class="elements">
-        <div class="element">
+        <article class="element">
           <img class="element__photo" src="./images/karachaevsk.png" alt="Фото монастыря в Карачаевске">
           <div class="element__desc">
             <h2 class="element__desc-title">Карачаевск</h2>
-            <button class="element__desc-like" src="./images/Vector-heart.png"></button>
+            <button class="element__desc-like" type="button"><img src="./images/heart.svg" alt="Иконка сердца"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__photo" src="./images/elbrus.png" alt="Фото монастыря в Карачаевске">
           <div class="element__desc">
             <h2 class="element__desc-title">Гора Эльбрус</h2>
-            <button class="element__desc-like" src="./images/Vector-heart.png"></button>
+            <button class="element__desc-like" type="button"><img src="./images/heart.svg" alt="Иконка сердца"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__photo" src="./images/dombay.png" alt="Фото монастыря в Карачаевске">
           <div class="element__desc">
             <h2 class="element__desc-title">Домбай</h2>
-            <button class="element__desc-like" src="./images/Vector-heart.png"></button>
+            <button class="element__desc-like" type="button"><img src="./images/heart.svg" alt="Иконка сердца"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__photo" src="./images/elbrus.png" alt="Фото монастыря в Карачаевске">
           <div class="element__desc">
             <h2 class="element__desc-title">Гора Эльбрус</h2>
-            <button class="element__desc-like" src="./images/Vector-heart.png"></button>
+            <button class="element__desc-like" type="button"><img src="./images/heart.svg" alt="Иконка сердца"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__photo" src="./images/dombay.png" alt="Фото монастыря в Карачаевске">
           <div class="element__desc">
             <h2 class="element__desc-title">Домбай</h2>
-            <button class="element__desc-like" src="./images/Vector-heart.png"></button>
+            <button class="element__desc-like" type="button"><img src="./images/heart.svg" alt="Иконка сердца"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__photo" src="./images/karachaevsk.png" alt="Фото монастыря в Карачаевске">
           <div class="element__desc">
             <h2 class="element__desc-title">Карачаево-Черкессия</h2>
-            <button class="element__desc-like" src="./images/Vector-heart.png"></button>
+            <button class="element__desc-like" type="button"><img src="./images/heart.svg" alt="Иконка сердца"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
 
@@ -77,7 +75,7 @@
     <div class="popup">
       <div class="popup__content">
         <button type="button" class="popup__close"></button>
-        <form class="popup__form">
+        <form name="profileEditForm" class="popup__form">
           <h3 class="popup__form-title">Редактировать профиль</h3>
           <input class="popup__input popup__input_type_name" type="text" placeholder="Имя">
           <input class="popup__input popup__input_type_job" type="text" placeholder="О себе">
@@ -86,6 +84,6 @@
       </div>
     </div>
   </div>
-  <script src="scripts/index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>
