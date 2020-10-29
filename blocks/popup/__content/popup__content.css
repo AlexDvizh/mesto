@@ -4,6 +4,7 @@
   width: calc(100% - 850px);
   position: relative;
   min-width: 280px;
+  max-width: 430px;
 }
 
 @media (max-width: 767px) {

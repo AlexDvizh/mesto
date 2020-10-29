@@ -4,14 +4,22 @@
   gap: 16px;
   max-width: 336px;
   align-items: center;
+  margin-left: -235px;
 }
+
+@media (min-width: 1024px) and (max-width: 1250px) {
+  .profile__info {
+    margin-left: 0;
+  }
+}
+
 
 @media (max-width: 1023px) {
   .profile__info {
     margin-right: 0;
+    margin-left: 0;
   }
 }
-
 
 @media (max-width: 767px) {
   .profile__info {

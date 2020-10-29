@@ -18,7 +18,6 @@
   .elements {
     grid-template-columns: 1fr;
     width: calc(100% - 40px);
-    margin: 0 auto;
   }
 }
 
