@@ -5,9 +5,7 @@
   height: 50px;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
-  position: absolute;
-  top: 30px;
-  right: 0;
+  margin-left: auto;
 }
 
 .profile__add-button:hover {
@@ -24,7 +22,6 @@
 @media (max-width: 767px) {
   .profile__add-button {
     width: 100%;
-    position: static;
     margin: 36px auto;
   }
 }
