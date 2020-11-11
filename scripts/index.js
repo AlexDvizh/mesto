@@ -1,19 +1,15 @@
-let popup = document.querySelector('.popup');
-let popupPhotoAdd = document.querySelector('.popup_type_add');
-let editButton = document.querySelector('.profile__edit-button');
-let addButton = document.querySelector('.profile__add-button');
-let popupCloseButton = document.querySelector('.popup__close');
-let popupCloseButtonPhoto = document.querySelector('.popup__close_photo');
+const popup = document.querySelector('.popup');
+const popupPhotoAdd = document.querySelector('.popup_type_add');
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const popupCloseButton = document.querySelector('.popup__close');
+const popupCloseButtonPhoto = document.querySelector('.popup__close_photo');
 let title = document.querySelector('.profile__title');
 let subTitle = document.querySelector('.profile__subtitle');
-let popupForm = document.querySelector('.popup__form');
+const popupForm = document.querySelector('.popup__form');
 let nameInput = document.querySelector('.popup__input_type_name');
 let jobInput = document.querySelector('.popup__input_type_job');
-let nameInputPhoto = document.querySelector('.popup__input_type_photo-name');
-let linkInputPhoto = document.querySelector('.popup__input_type_link-photo');
-let photoTitle = document.querySelector('.element__desc-title');
-let photoAdd = document.querySelector('.element__photo');
-let elementsList = document.querySelector('.elements');
+const elementsList = document.querySelector('.elements');
 const addPlaceForm = document.querySelector('.popup__form_add-place');
 
 //создали функцию открытия поп-апа редактирования профиля
@@ -23,10 +19,14 @@ function showPopup() {
   jobInput.value = subTitle.textContent;   
 }
 
+editButton.addEventListener('click', showPopup);
+
 //создали функцию закрытия поп-апа редактирования профиля
 function closePopup() {
   popup.classList.remove('popup_opened');
 }
+
+popupCloseButton.addEventListener('click', closePopup);
 
 //создали функцию замены текста профиля из поп-апа, исходя из введеных пользователем данных
 function submitForm(event) {
@@ -37,22 +37,21 @@ function submitForm(event) {
   closePopup();
 }
 
-editButton.addEventListener('click', showPopup);
-popupCloseButton.addEventListener('click', closePopup);
 popupForm.addEventListener('submit', submitForm);
 
+//добавили массив карточек
 const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
   {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: 'Йосемитская долина',
+    link: 'https://images.unsplash.com/photo-1516258115999-95997920a630?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjE0NTM1OH0&auto=format&fit=crop&w=334&q=80'
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: 'Озеро Минневанка',
+    link: 'https://images.unsplash.com/photo-1510711789248-087061cda288?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80'
   },
   {
     name: 'Камчатка',
@@ -73,13 +72,13 @@ function showPopupPhoto() {
   popupPhotoAdd.classList.add('popup_opened');  
 }
 
+addButton.addEventListener('click', showPopupPhoto);
+
 //создали функцию закрытия поп-апа добавления фото
 function closePopupPhoto() {
   popupPhotoAdd.classList.remove('popup_opened');
 }
 
-
-addButton.addEventListener('click', showPopupPhoto);
 popupCloseButtonPhoto.addEventListener('click', closePopupPhoto);
 
 
@@ -89,8 +88,25 @@ function addElement(item) {
 
   cardElement.querySelector('.element__desc-title').textContent = item.name;
   cardElement.querySelector('.element__photo').src = item.link;
+  
+  //функция удаления карточки
+  cardElement.querySelector('.element__delete').addEventListener('click', (event) => {
+    const todoDelete = event.target.closest('.element');
 
-  elementsList.append(cardElement);
+    if (todoDelete) {
+      todoDelete.remove();
+    } 
+  });
+
+  cardElement.querySelector('.element__desc-like').addEventListener('click', (event) => {
+    const todoLike = event.target.closest('.element__desc-like');
+
+    if (todoLike) {
+      todoLike.classList.toggle('element__desc-like_type_off');
+    }
+  });
+
+  elementsList.prepend(cardElement);
 }
 
 initialCards.forEach((item) => {
@@ -98,8 +114,6 @@ initialCards.forEach((item) => {
 });
 
 //функция добавления новой карточки на страницу
-addPlaceForm.addEventListener('submit', addPlace);
-
 function addPlace(event) {
   event.preventDefault();
 
@@ -109,7 +123,6 @@ function addPlace(event) {
   const card = {
     name,
     link 
-
   };
 
   initialCards.push(card);
@@ -118,25 +131,22 @@ function addPlace(event) {
   closePopupPhoto()
 }
 
+addPlaceForm.addEventListener('submit', addPlace);
 
 
 
 
 //функция удаления карточки (не доделана)
-//let deleteButton = document.querySelector('.element__delete');
 
-//deleteButton.addEventListener('click', (data) => {
-
-//}
 
 //создали функцию смены внешнего вида кнопки при нажатии на лайк
-let likeButtons = document.querySelectorAll('.element__desc-like');
+//let likeButtons = document.querySelectorAll('.element__desc-like');
 
-likeButtons.forEach(button => {
-  button.addEventListener('click', (evt) => {
-    const theTarget = evt.target;
-    button.classList.toggle('element__desc-like_type_off');
-  });
-});
+//likeButtons.forEach(button => {
+//  button.addEventListener('click', (evt) => {
+//    const theTarget = evt.target;
+//    button.classList.toggle('element__desc-like_type_off');
+//  });
+//});
 
 
