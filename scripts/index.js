@@ -13,6 +13,8 @@ let nameInputPhoto = document.querySelector('.popup__input_type_photo-name');
 let linkInputPhoto = document.querySelector('.popup__input_type_link-photo');
 let photoTitle = document.querySelector('.element__desc-title');
 let photoAdd = document.querySelector('.element__photo');
+let elementsList = document.querySelector('.elements');
+const addPlaceForm = document.querySelector('.popup__form_add-place');
 
 //создали функцию открытия поп-апа редактирования профиля
 function showPopup() {
@@ -66,32 +68,75 @@ const initialCards = [
   }
 ]; 
 
+//создали функцию открытия поп-апа добавления фото
 function showPopupPhoto() {
   popupPhotoAdd.classList.add('popup_opened');  
 }
 
+//создали функцию закрытия поп-апа добавления фото
 function closePopupPhoto() {
   popupPhotoAdd.classList.remove('popup_opened');
 }
+
 
 addButton.addEventListener('click', showPopupPhoto);
 popupCloseButtonPhoto.addEventListener('click', closePopupPhoto);
 
 
-let elementsList = document.querySelector('.elements');
-
-
-
+//создали функцию переберающую массив и добавляющую элементы из массива на страницу
 function addElement(item) {
   const cardElement = document.querySelector('.element-template').content.cloneNode(true);
 
   cardElement.querySelector('.element__desc-title').textContent = item.name;
   cardElement.querySelector('.element__photo').src = item.link;
 
-  elementsList.prepend(cardElement);
+  elementsList.append(cardElement);
 }
 
 initialCards.forEach((item) => {
   addElement(item);
 });
+
+//функция добавления новой карточки на страницу
+addPlaceForm.addEventListener('submit', addPlace);
+
+function addPlace(event) {
+  event.preventDefault();
+
+  const name = document.querySelector('.popup__input_type_photo-name').value;
+  const link = document.querySelector('.popup__input_type_link-photo').value;
+
+  const card = {
+    name,
+    link 
+
+  };
+
+  initialCards.push(card);
+  addElement(card);
+
+  closePopupPhoto()
+}
+
+
+
+
+
+//функция удаления карточки (не доделана)
+//let deleteButton = document.querySelector('.element__delete');
+
+//deleteButton.addEventListener('click', (data) => {
+
+//}
+
+//создали функцию смены внешнего вида кнопки при нажатии на лайк
+let likeButtons = document.querySelectorAll('.element__desc-like');
+
+likeButtons.forEach(button => {
+  button.addEventListener('click', (evt) => {
+    const theTarget = evt.target;
+    button.classList.toggle('element__desc-like_type_off');
+  });
+});
+
 

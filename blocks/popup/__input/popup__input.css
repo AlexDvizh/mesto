@@ -16,3 +16,9 @@
     margin-top: 75px; 
   }
 }
+
+@media (max-width: 767px) {
+  .popup__input:last-of-type {
+    margin-top: 20px; 
+  }
+}

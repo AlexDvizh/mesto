@@ -1,0 +1,9 @@
+.popup__content_type_add {
+
+}
+
+@media (max-width: 767px) {
+  .popup__content_type_add {
+    width: calc(100% - 80px);
+  }
+}
