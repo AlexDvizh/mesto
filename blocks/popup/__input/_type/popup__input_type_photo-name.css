@@ -1,10 +1,9 @@
 .popup__input_type_photo-name {
-
 }
 
 @media (max-width: 767px) {
   .popup__input_type_photo-name {
-    margin-top: 36px; 
+    margin-top: 36px;
     font-size: 12px;
     line-height: 15px;
     padding-bottom: 12px;
