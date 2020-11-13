@@ -12,6 +12,8 @@ let jobInput = document.querySelector('.popup__input_type_job');
 const elementsList = document.querySelector('.elements');
 const addPlaceForm = document.querySelector('.popup__form_add-place');
 
+
+
 //создали функцию открытия поп-апа редактирования профиля
 function showPopup() {
   popup.classList.add('popup_opened'); 
@@ -47,7 +49,7 @@ const initialCards = [
   },
   {
     name: 'Йосемитская долина',
-    link: 'https://images.unsplash.com/photo-1516258115999-95997920a630?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjE0NTM1OH0&auto=format&fit=crop&w=334&q=80'
+    link: 'https://images.unsplash.com/photo-1516001511917-f504ed8149af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1549&q=80'
   },
   {
     name: 'Озеро Минневанка',
@@ -68,18 +70,18 @@ const initialCards = [
 ]; 
 
 //создали функцию открытия поп-апа добавления фото
-function showPopupPhoto() {
+function showPopupAdd() {
   popupPhotoAdd.classList.add('popup_opened');  
 }
 
-addButton.addEventListener('click', showPopupPhoto);
+addButton.addEventListener('click', showPopupAdd);
 
 //создали функцию закрытия поп-апа добавления фото
-function closePopupPhoto() {
+function closePopupAdd() {
   popupPhotoAdd.classList.remove('popup_opened');
 }
 
-popupCloseButtonPhoto.addEventListener('click', closePopupPhoto);
+popupCloseButtonPhoto.addEventListener('click', closePopupAdd);
 
 
 //создали функцию переберающую массив и добавляющую элементы из массива на страницу
@@ -87,6 +89,13 @@ function addElement(item) {
   const cardElement = document.querySelector('.element-template').content.cloneNode(true);
 
   cardElement.querySelector('.element__desc-title').textContent = item.name;
+ 
+  const image = cardElement.querySelector('.element__photo');
+  image.src = item.link;
+  image.addEventListener('click', (e) => {
+    showPopupPhoto(e);
+  });
+
   cardElement.querySelector('.element__photo').src = item.link;
   
   //функция удаления карточки
@@ -97,7 +106,8 @@ function addElement(item) {
       todoDelete.remove();
     } 
   });
-
+  
+  //функция лайка карточки
   cardElement.querySelector('.element__desc-like').addEventListener('click', (event) => {
     const todoLike = event.target.closest('.element__desc-like');
 
@@ -128,25 +138,33 @@ function addPlace(event) {
   initialCards.push(card);
   addElement(card);
 
-  closePopupPhoto()
+  closePopupAdd();
 }
 
 addPlaceForm.addEventListener('submit', addPlace);
 
+// открытие поп-апа с большим фото
+const popupTypeOpen = document.querySelector('.popup_type_open');
 
+function showPopupPhoto(event) {
+  popupTypeOpen.classList.add('popup_opened'); 
 
+  const cardElement = event.target.closest('.element');
+  const photo = cardElement.querySelector('.element__photo');
+  const title = cardElement.querySelector('.element__desc-title');
+  
+  popupTypeOpen.querySelector('.popup__image').src = photo.src;
+  popupTypeOpen.querySelector('.popup__img-title').innerHTML = title.textContent;
+}
 
-//функция удаления карточки (не доделана)
+//закрытие поп-апа с большим фото
+const popupCloseImg = document.querySelector('.popup__close-img');
 
+function closePopupPhoto() {
+  popupTypeOpen.classList.remove('popup_opened');  
+}
 
-//создали функцию смены внешнего вида кнопки при нажатии на лайк
-//let likeButtons = document.querySelectorAll('.element__desc-like');
+popupCloseImg.addEventListener('click', closePopupPhoto);
 
-//likeButtons.forEach(button => {
-//  button.addEventListener('click', (evt) => {
-//    const theTarget = evt.target;
-//    button.classList.toggle('element__desc-like_type_off');
-//  });
-//});
 
 

@@ -5,6 +5,8 @@
   position: relative;
   min-width: 240px;
   max-width: 430px;
+  margin: auto;
+  margin-top: 170px;
 }
 
 @media (max-width: 767px) {

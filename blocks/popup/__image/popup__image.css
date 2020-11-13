@@ -1,0 +1,12 @@
+.popup__image {
+  object-fit: contain;
+  max-height: 75vh;
+  margin: auto;
+}
+
+@media (max-width: 767px) {
+  .popup__image  {
+    max-width: 240px;
+    max-height: 300px;
+  }
+}
