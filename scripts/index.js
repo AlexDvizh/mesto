@@ -4,20 +4,21 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const popupCloseButton = document.querySelector('.popup__close');
 const popupCloseButtonPhoto = document.querySelector('.popup__close_photo');
-let title = document.querySelector('.profile__title');
-let subTitle = document.querySelector('.profile__subtitle');
+const profileTitle = document.querySelector('.profile__title');
+const subTitle = document.querySelector('.profile__subtitle');
 const popupForm = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_job');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
 const elementsList = document.querySelector('.elements');
 const addPlaceForm = document.querySelector('.popup__form_add-place');
+const popupTypeOpen = document.querySelector('.popup_type_open');
 
 
 
 //создали функцию открытия поп-апа редактирования профиля
 function showPopup() {
   popup.classList.add('popup_opened'); 
-  nameInput.value = title.textContent;
+  nameInput.value = profileTitle.textContent;
   jobInput.value = subTitle.textContent;   
 }
 
@@ -33,7 +34,7 @@ popupCloseButton.addEventListener('click', closePopup);
 //создали функцию замены текста профиля из поп-апа, исходя из введеных пользователем данных
 function submitForm(event) {
   event.preventDefault();
-  title.textContent = nameInput.value;
+  profileTitle.textContent = nameInput.value;
   subTitle.textContent = jobInput.value; 
   
   closePopup();
@@ -92,11 +93,14 @@ function addElement(item) {
  
   const image = cardElement.querySelector('.element__photo');
   image.src = item.link;
+  image.alt = `Фото: ${item.name}`;
   image.addEventListener('click', (e) => {
     showPopupPhoto(e);
   });
 
   cardElement.querySelector('.element__photo').src = item.link;
+
+  
   
   //функция удаления карточки
   cardElement.querySelector('.element__delete').addEventListener('click', (event) => {
@@ -111,9 +115,8 @@ function addElement(item) {
   cardElement.querySelector('.element__desc-like').addEventListener('click', (event) => {
     const todoLike = event.target.closest('.element__desc-like');
 
-    if (todoLike) {
-      todoLike.classList.toggle('element__desc-like_type_off');
-    }
+    todoLike.classList.toggle('element__desc-like_type_off');
+  
   });
 
   elementsList.prepend(cardElement);
@@ -144,8 +147,6 @@ function addPlace(event) {
 addPlaceForm.addEventListener('submit', addPlace);
 
 // открытие поп-апа с большим фото
-const popupTypeOpen = document.querySelector('.popup_type_open');
-
 function showPopupPhoto(event) {
   popupTypeOpen.classList.add('popup_opened'); 
 
