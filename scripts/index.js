@@ -13,35 +13,6 @@ const elementsList = document.querySelector('.elements');
 const addPlaceForm = document.querySelector('.popup__form_add-place');
 const popupTypeOpen = document.querySelector('.popup_type_open');
 
-
-
-//создали функцию открытия поп-апа редактирования профиля
-function showPopup() {
-  popup.classList.add('popup_opened'); 
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = subTitle.textContent;   
-}
-
-editButton.addEventListener('click', showPopup);
-
-//создали функцию закрытия поп-апа редактирования профиля
-function closePopup() {
-  popup.classList.remove('popup_opened');
-}
-
-popupCloseButton.addEventListener('click', closePopup);
-
-//создали функцию замены текста профиля из поп-апа, исходя из введеных пользователем данных
-function submitForm(event) {
-  event.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  subTitle.textContent = jobInput.value; 
-  
-  closePopup();
-}
-
-popupForm.addEventListener('submit', submitForm);
-
 //добавили массив карточек
 const initialCards = [
   {
@@ -69,6 +40,33 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ]; 
+
+//создали функцию открытия поп-апа редактирования профиля
+function showPopup() {
+  popup.classList.add('popup_opened'); 
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = subTitle.textContent;   
+}
+
+editButton.addEventListener('click', showPopup);
+
+//создали функцию закрытия поп-апа редактирования профиля
+function closePopup() {
+  popup.classList.remove('popup_opened');
+}
+
+popupCloseButton.addEventListener('click', closePopup);
+
+//создали функцию замены текста профиля из поп-апа, исходя из введеных пользователем данных
+function submitForm(event) {
+  event.preventDefault();
+  profileTitle.textContent = nameInput.value;
+  subTitle.textContent = jobInput.value; 
+  
+  closePopup();
+}
+
+popupForm.addEventListener('submit', submitForm);
 
 //создали функцию открытия поп-апа добавления фото
 function showPopupAdd() {
@@ -99,8 +97,6 @@ function addElement(item) {
   });
 
   cardElement.querySelector('.element__photo').src = item.link;
-
-  
   
   //функция удаления карточки
   cardElement.querySelector('.element__delete').addEventListener('click', (event) => {
@@ -142,6 +138,8 @@ function addPlace(event) {
   addElement(card);
 
   closePopupAdd();
+
+  event.target.reset();  //обнуление полей ввода при добавлении карточки
 }
 
 addPlaceForm.addEventListener('submit', addPlace);
@@ -167,5 +165,31 @@ function closePopupPhoto() {
 
 popupCloseImg.addEventListener('click', closePopupPhoto);
 
+//функция закрытия поп-апов при клике за пределами поп-апа
+function closePopupOnClick (event) {
+  if (event.target.classList.contains('popup')) {
+    closePopup();
+  };
+  if (event.target.classList.contains('popup_type_add')) {
+    closePopupAdd();
+  };
+  if (event.target.classList.contains('popup_type_open')) {
+    closePopupPhoto();
+  };
+}
+
+popup.addEventListener('mousedown', closePopupOnClick );
+popupPhotoAdd.addEventListener('mousedown', closePopupOnClick );
+popupTypeOpen.addEventListener('mousedown', closePopupOnClick );
 
 
+//функция закрытия поп-апов при клике на кнопку ESC
+function closePopupOnButton(event) {
+  if (event.key === 'Escape') {
+    closePopup();
+    closePopupAdd();
+    closePopupPhoto();
+  };
+}
+
+document.addEventListener('keydown', closePopupOnButton);

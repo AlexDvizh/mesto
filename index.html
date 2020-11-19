@@ -36,8 +36,8 @@
         <button type="button" class="popup__close"></button>
         <form name="profileEditForm" class="popup__form">
           <h3 class="popup__form-title">Редактировать профиль</h3>
-          <input name="userName" class="popup__input popup__input_type_name" type="text" placeholder="Имя">
-          <input name="userJob" class="popup__input popup__input_type_job" type="text" placeholder="О себе">
+          <input name="userName" class="popup__input popup__input_type_name" type="text" placeholder="Имя" required minlength="2" maxlength="40">
+          <input name="userJob" class="popup__input popup__input_type_job" type="text" placeholder="О себе" required minlength="2" maxlength="200">
           <button type="submit" class="popup__form-save">Сохранить</button>
         </form>  
       </div>
@@ -48,8 +48,8 @@
         <button type="button" class="popup__close popup__close_photo"></button>
         <form name="photoAddForm" class="popup__form popup__form_add-place">
           <h3 class="popup__form-title">Новое место</h3>
-          <input name="namePhoto" class="popup__input popup__input_type_photo-name" type="text" placeholder="Название">
-          <input name="linkPhoto" class="popup__input popup__input_type_link-photo" type="text" placeholder="Ссылка на картинку">
+          <input name="namePhoto" class="popup__input popup__input_type_photo-name" type="text" placeholder="Название" required minlength="2" maxlength="30">
+          <input name="linkPhoto" class="popup__input popup__input_type_link-photo" type="url" placeholder="Ссылка на картинку" required>
           <button type="submit" class="popup__form-save popup__form-save_type_add">Создать</button>
         </form>  
       </div>
@@ -76,5 +76,6 @@
 
   </div>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
