@@ -1,11 +1,6 @@
-const popupFormValid = document.querySelector('.popup__form');
-const inputListValid = popupForm.querySelectorAll('.popup__input');
-const editFormButton = popupForm.querySelector('.popup__form-save');
 
 //отменяем стандартное поведение при нажатии на submit
-popupFormValid.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-});
+
 
 //функция, которая показывает ошибку
 function showError(form, input) {
@@ -40,9 +35,30 @@ function setButtonState(button, isActive) {
 }
 
 
-inputListValid.forEach((input) => {
-  input.addEventListener('input', () => {
-    checkInputValid(popupFormValid, input);
-    setButtonState(editFormButton, popupFormValid.checkValidity());
+//функция сбора всех инпутов в формах
+function setEventListeners(form) {
+  const inputListValid = form.querySelectorAll('.popup__input');
+  const editFormButton = form.querySelector('.popup__form-save');
+  
+  inputListValid.forEach((input) => {
+    input.addEventListener('input', () => {
+      checkInputValid(form, input);
+      setButtonState(editFormButton, form.checkValidity());
+    });
   });
-});
+}
+
+//функция добавления валидации на все формы сайта 
+//и корректное отображение кнопки
+function enableValidation() {
+  const forms = document.querySelectorAll('.popup__form');
+  forms.forEach((form) => {
+    setEventListeners(form);
+
+    form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+  });
+}
+
+enableValidation();

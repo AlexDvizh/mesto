@@ -78,6 +78,8 @@ addButton.addEventListener('click', showPopupAdd);
 //создали функцию закрытия поп-апа добавления фото
 function closePopupAdd() {
   popupPhotoAdd.classList.remove('popup_opened');
+
+  popupForm.reset();
 }
 
 popupCloseButtonPhoto.addEventListener('click', closePopupAdd);
@@ -138,8 +140,6 @@ function addPlace(event) {
   addElement(card);
 
   closePopupAdd();
-
-  event.target.reset();  //обнуление полей ввода при добавлении карточки
 }
 
 addPlaceForm.addEventListener('submit', addPlace);
