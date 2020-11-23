@@ -15,45 +15,45 @@ function hideError(form, input) {
 }
 
 //функция, которая проверяет валидность формы
-function checkInputValid(form, input) {
+function checkInputValid(form, input, config) {
   if (!input.validity.valid) {
-    showError(form, input);
+    showError(form, input, config);
   } else {
-    hideError(form, input);
+    hideError(form, input, config);
   }
 }
 
 //функция изменения состояния кнопки при валидности форм
-function setButtonState(button, isActive) {
+function setButtonState(button, isActive, config) {
   if (isActive) {
-    button.classList.remove('popup__form-save_type_off');
+    button.classList.remove(config.buttonInvalidClass);
     button.disabled = false;
   } else {
-    button.classList.add('popup__form-save_type_off');
+    button.classList.add(config.buttonInvalidClass);
     button.disabled = true;
   }
 }
 
 
 //функция сбора всех инпутов в формах
-function setEventListeners(form) {
-  const inputListValid = form.querySelectorAll('.popup__input');
-  const editFormButton = form.querySelector('.popup__form-save');
+function setEventListeners(form, config) {
+  const inputListValid = form.querySelectorAll(config.inputSelector);
+  const editFormButton = form.querySelector(config.submitButtonSelector);
   
   inputListValid.forEach((input) => {
     input.addEventListener('input', () => {
-      checkInputValid(form, input);
-      setButtonState(editFormButton, form.checkValidity());
+      checkInputValid(form, input, config);
+      setButtonState(editFormButton, form.checkValidity(), config);
     });
   });
 }
 
-//функция добавления валидации на все формы сайта 
+//функция включения валидации на все формы сайта 
 //и корректное отображение кнопки
-function enableValidation() {
-  const forms = document.querySelectorAll('.popup__form');
+function enableValidation(config) {
+  const forms = document.querySelectorAll(config.formSelector);
   forms.forEach((form) => {
-    setEventListeners(form);
+    setEventListeners(form, config);
 
     form.addEventListener('submit', (evt) => {
       evt.preventDefault();
@@ -61,4 +61,12 @@ function enableValidation() {
   });
 }
 
-enableValidation();
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__form-save',
+  buttonInvalidClass: 'popup__form-save_type_off'
+}; 
+
+enableValidation(validationConfig);
+
