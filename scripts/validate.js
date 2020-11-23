@@ -61,6 +61,7 @@ function enableValidation(config) {
   });
 }
 
+//преобразование классов в объект
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
