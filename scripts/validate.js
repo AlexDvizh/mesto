@@ -1,7 +1,4 @@
 
-//отменяем стандартное поведение при нажатии на submit
-
-
 //функция, которая показывает ошибку
 function showError(form, input) {
   const error = form.querySelector(`#${input.id}-error`);
@@ -27,10 +24,10 @@ function checkInputValid(form, input, config) {
 function setButtonState(button, isActive, config) {
   if (isActive) {
     button.classList.remove(config.buttonInvalidClass);
-    button.disabled = false;
+    //button.disabled = false;
   } else {
     button.classList.add(config.buttonInvalidClass);
-    button.disabled = true;
+    //button.disabled = true;
   }
 }
 
