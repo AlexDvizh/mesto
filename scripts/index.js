@@ -139,7 +139,7 @@ function addCard(placeCard) {
   elementsList.prepend(card);
 }
 
-initialCards.forEach(item) => {
+initialCards.forEach((item) => {
   addCard(item)
 });
 
@@ -150,8 +150,7 @@ function handleSubmitAddPlaceForm(event) {
   const name = document.querySelector('.popup__input_type_photo-name').value;
   const link = document.querySelector('.popup__input_type_link-photo').value;
   const placeCard = new PlaceCard(name, link);
-  const cardDOMElement = createCardDOMElement(placeCard);
-  elementsList.prepend(cardDOMElement);
+  addCard(placeCard);
   closePopup(popupPhotoAdd);
 }
 
