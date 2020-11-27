@@ -15,6 +15,8 @@ const popupTypeOpen = document.querySelector('.popup_type_open');
 const popupCloseImg = document.querySelector('.popup__close-img');
 const popupAddButton = document.querySelector('.popup__form-save_type_add');
 const elementTemplate = document.querySelector('.element-template');
+const inputTypePhotoName = document.querySelector('.popup__input_type_photo-name');
+const inputTypePhotoLink = document.querySelector('.popup__input_type_link-photo');
 
 
 function PlaceCard(title, link) {
@@ -53,17 +55,16 @@ addButton.addEventListener('click', () => {
 });
 //открытие поп-апа увеличенной картинки
 function showPopupPhoto(event) {
-  popupTypeOpen.classList.add('popup_opened'); 
+  openPopup(popupTypeOpen);
 
   const cardElement = event.target.closest('.element');
   const photo = cardElement.querySelector('.element__photo');
   const title = cardElement.querySelector('.element__desc-title');
+  const image = popupTypeOpen.querySelector('.popup__image');
   
-  popupTypeOpen.querySelector('.popup__image').src = photo.src;
-  popupTypeOpen.querySelector('.popup__image').alt = title.textContent;
+  image.src = photo.src;
+  image.alt = title.textContent;
   popupTypeOpen.querySelector('.popup__img-title').innerHTML = title.textContent;
-
-  document.addEventListener('keydown', closePopupOnButton);
 }
 
 
@@ -147,8 +148,8 @@ initialCards.forEach((item) => {
 function handleSubmitAddPlaceForm(event) {
   event.preventDefault();
 
-  const name = document.querySelector('.popup__input_type_photo-name').value;
-  const link = document.querySelector('.popup__input_type_link-photo').value;
+  const name = inputTypePhotoName.value;
+  const link = inputTypePhotoLink.value;
   const placeCard = new PlaceCard(name, link);
   addCard(placeCard);
   closePopup(popupPhotoAdd);
@@ -159,9 +160,9 @@ addPlaceForm.addEventListener('submit', handleSubmitAddPlaceForm);
 
 //функция закрытия поп-апов при клике за пределами поп-апа
 function closePopupOnClick (event) {
-  const openedPopup = document.querySelector('.popup_opened')
-
   if (event.target.classList.contains('popup_opened')) {
+    const openedPopup = document.querySelector('.popup_opened');
+
     closePopup(openedPopup);
   }
 }
@@ -173,9 +174,9 @@ popupTypeOpen.addEventListener('mousedown', closePopupOnClick );
 
 //функция закрытия поп-апов при клике на кнопку ESC
 function closePopupOnButton(event) {
-  const openedPopup = document.querySelector('.popup_opened')
+  if (event.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
 
-  if (event.key === 'Escape' && openedPopup) {
     closePopup(openedPopup);
   };
 }
