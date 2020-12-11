@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 const popupProfile = document.querySelector('.popup_type_edit');
 const popupPhotoAdd = document.querySelector('.popup_type_add');
@@ -16,54 +17,16 @@ const addPlaceForm = document.querySelector('.popup__form_add-place');
 const popupTypeOpen = document.querySelector('.popup_type_open');
 const popupCloseImg = document.querySelector('.popup__close-img');
 const popupAddButton = document.querySelector('.popup__form-save_type_add');
-//const elementTemplate = document.querySelector('.element-template');
 const inputTypePhotoName = document.querySelector('.popup__input_type_photo-name');
 const inputTypePhotoLink = document.querySelector('.popup__input_type_link-photo');
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__form-save',
+  buttonInvalidClass: 'popup__form-save_type_off'
+}; 
 
-
-// function PlaceCard(title, link) {
-//   this.name = title;
-//   this.link = link;
-// }
-
-//добавили массив карточек
-// const initialCards = [ 
-//   { 
-//     name: 'Архыз', 
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' 
-//   }, 
-//   { 
-//     name: 'Йосемитская долина', 
-//     link: 'https://images.unsplash.com/photo-1516001511917-f504ed8149af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1549&q=80' 
-//   }, 
-//   { 
-//     name: 'Озеро Минневанка', 
-//     link: 'https://images.unsplash.com/photo-1510711789248-087061cda288?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80' 
-//   }, 
-//   { 
-//     name: 'Камчатка', 
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg' 
-//   }, 
-//   { 
-//     name: 'Холмогорский район', 
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg' 
-//   }, 
-//   { 
-//     name: 'Байкал', 
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' 
-//   } 
-// ];  
-
-
-// const initialCards = [
-//   new Card('Архыз', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'),
-//   new Card('Йосемитская долина', 'https://images.unsplash.com/photo-1516001511917-f504ed8149af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1549&q=80'),
-//   new Card('Озеро Минневанка', 'https://images.unsplash.com/photo-1510711789248-087061cda288?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80'),
-//   new Card('Камчатка', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'),
-//   new Card('Холмогорский район', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'),
-//   new Card('Байкал', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg')
-// ]; 
 
 //функция открытия поп-апов
 function openPopup(popup) {
@@ -77,12 +40,16 @@ editButton.addEventListener('click', () => {
   openPopup(popupProfile);
   nameInput.value = profileTitle.textContent;
   jobInput.value = subTitle.textContent; 
+  
+  new FormValidator(validationConfig, popupForm).enableValidation();
 });
 //открытие поп-апа добавления карточки
 addButton.addEventListener('click', () => {
   openPopup(popupPhotoAdd);
   addPlaceForm.reset(); 
   popupAddButton.classList.add('popup__form-save_type_off');
+
+  new FormValidator(validationConfig, addPlaceForm).enableValidation();
 });
 //открытие поп-апа увеличенной картинки
 export default function showPopupPhoto(event) {
@@ -130,59 +97,6 @@ function submitForm(event) {
 }
 
 popupForm.addEventListener('submit', submitForm);
-
-//Создаёт DOM элемент карточки
-// function createCardDOMElement(placeCard) {
-//   const cardElement = elementTemplate.content.cloneNode(true);
-
-//   cardElement.querySelector('.element__desc-title').textContent = placeCard.name;
- 
-//   const image = cardElement.querySelector('.element__photo');
-//   image.src = placeCard.link;
-//   image.alt = `Фото: ${placeCard.name}`;
-//   image.addEventListener('click', (e) => {
-//     showPopupPhoto(e);
-//   });
-  
-  // //функция удаления карточки
-  // cardElement.querySelector('.element__delete').addEventListener('click', (event) => {
-  //   const todoDelete = event.target.closest('.element');
-
-  //   if (todoDelete) {
-  //     todoDelete.remove();
-  //   } 
-  // });
-  
-  //функция лайка карточки
-  // cardElement.querySelector('.element__desc-like').addEventListener('click', (event) => {
-  //   const todoLike = event.target.closest('.element__desc-like');
-
-  //   todoLike.classList.toggle('element__desc-like_type_off');
-  
-  // });
-
-//   return cardElement;
-// }
-
-
-//Добавляет карточку в DOM
-// function addCard(placeCard) {
-//   const card = createCardDOMElement(placeCard);
-//   elementsList.prepend(card);
-// }
-
-// initialCards.forEach((item) => {
-//   addCard(item)
-// });
-
-
-// initialCards.forEach((item) => {
-// const card = new Card(item._name, item._link);
-// const cardElement = card.generateCard();
-
-// elementsList.prepend(cardElement);
-// });
-
 
 
 //функция добавления новой карточки на страницу
