@@ -58,7 +58,7 @@ export default class FormValidator {
     forms.forEach(() => {
       this._setEventListeners(this._checkingForm, this._config);
 
-      form.addEventListener('submit', (evt) => {
+      this._checkingForm.addEventListener('submit', (evt) => {
         evt.preventDefault();
       });
     });
