@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import {openPopup, closePopup} from './utils.js';
 
 const popupProfile = document.querySelector('.popup_type_edit');
 const popupPhotoAdd = document.querySelector('.popup_type_add');
@@ -20,6 +21,33 @@ const popupAddButton = document.querySelector('.popup__form-save_type_add');
 const inputTypePhotoName = document.querySelector('.popup__input_type_photo-name');
 const inputTypePhotoLink = document.querySelector('.popup__input_type_link-photo');
 
+const initialCards = [ 
+  { 
+    name: 'Архыз', 
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' 
+  }, 
+  { 
+    name: 'Йосемитская долина', 
+    link: 'https://images.unsplash.com/photo-1516001511917-f504ed8149af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1549&q=80' 
+  }, 
+  { 
+    name: 'Озеро Минневанка', 
+    link: 'https://images.unsplash.com/photo-1510711789248-087061cda288?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80' 
+  }, 
+  { 
+    name: 'Камчатка', 
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg' 
+  }, 
+  { 
+    name: 'Холмогорский район', 
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg' 
+  }, 
+  { 
+    name: 'Байкал', 
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' 
+  } 
+];  
+
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -28,50 +56,19 @@ const validationConfig = {
 }; 
 
 
-//функция открытия поп-апов
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  
-  document.addEventListener('keydown', closePopupOnButton);
-}
-
 //открытие поп-апа профиля
 editButton.addEventListener('click', () => {
   openPopup(popupProfile);
   nameInput.value = profileTitle.textContent;
   jobInput.value = subTitle.textContent; 
-  
-  new FormValidator(validationConfig, popupForm).enableValidation();
 });
 //открытие поп-апа добавления карточки
 addButton.addEventListener('click', () => {
   openPopup(popupPhotoAdd);
   addPlaceForm.reset(); 
   popupAddButton.classList.add('popup__form-save_type_off');
-
-  new FormValidator(validationConfig, addPlaceForm).enableValidation();
 });
-//открытие поп-апа увеличенной картинки
-export default function showPopupPhoto(event) {
-  openPopup(popupTypeOpen);
 
-  const cardElement = event.target.closest('.element');
-  const photo = cardElement.querySelector('.element__photo');
-  const title = cardElement.querySelector('.element__desc-title');
-  const image = popupTypeOpen.querySelector('.popup__image');
-  
-  image.src = photo.src;
-  image.alt = title.textContent;
-  popupTypeOpen.querySelector('.popup__img-title').innerHTML = title.textContent;
-}
-
-
-//функция закрытия поп-апов
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-
-  document.removeEventListener('keydown', closePopupOnButton);
-}
 
 //закрытие поп-апа профиля
 popupCloseButton.addEventListener('click', () => {
@@ -105,15 +102,22 @@ function handleSubmitAddPlaceForm(event) {
 
   const name = inputTypePhotoName.value;
   const link = inputTypePhotoLink.value;
-  const placeCard = new Card(name, link);
-  const cardElement = placeCard.generateCard();
+  const placeCard = new Card(name, link, "#card").generateCard();
+  // const cardElement = placeCard.generateCard();
 
-  elementsList.prepend(cardElement);
+  elementsList.prepend(placeCard);
 
   closePopup(popupPhotoAdd);
 }
 
 addPlaceForm.addEventListener('submit', handleSubmitAddPlaceForm);
+
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link);
+  const cardElement = card.generateCard();
+
+  elementsList.prepend(cardElement);
+});
 
 
 //функция закрытия поп-апов при клике за пределами поп-апа
@@ -130,11 +134,5 @@ popupPhotoAdd.addEventListener('mousedown', closePopupOnClick );
 popupTypeOpen.addEventListener('mousedown', closePopupOnClick );
 
 
-//функция закрытия поп-апов при клике на кнопку ESC
-function closePopupOnButton(event) {
-  if (event.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-
-    closePopup(openedPopup);
-  };
-}
+new FormValidator(validationConfig, popupForm).enableValidation();
+new FormValidator(validationConfig, addPlaceForm).enableValidation();
