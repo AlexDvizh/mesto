@@ -102,8 +102,7 @@ function handleSubmitAddPlaceForm(event) {
 
   const name = inputTypePhotoName.value;
   const link = inputTypePhotoLink.value;
-  const placeCard = new Card(name, link, "#card").generateCard();
-  // const cardElement = placeCard.generateCard();
+  const placeCard = new Card(name, link, ".element-template").generateCard();
 
   elementsList.prepend(placeCard);
 
@@ -113,7 +112,7 @@ function handleSubmitAddPlaceForm(event) {
 addPlaceForm.addEventListener('submit', handleSubmitAddPlaceForm);
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link);
+  const card = new Card(item.name, item.link, '.element-template');
   const cardElement = card.generateCard();
 
   elementsList.prepend(cardElement);
@@ -133,6 +132,9 @@ popupProfile.addEventListener('mousedown', closePopupOnClick );
 popupPhotoAdd.addEventListener('mousedown', closePopupOnClick );
 popupTypeOpen.addEventListener('mousedown', closePopupOnClick );
 
+const profileFormValidator = new FormValidator(validationConfig, popupForm);
+profileFormValidator.enableValidation();
 
-new FormValidator(validationConfig, popupForm).enableValidation();
-new FormValidator(validationConfig, addPlaceForm).enableValidation();
+const placeFormValidator = new FormValidator(validationConfig, addPlaceForm);
+placeFormValidator.enableValidation();
+

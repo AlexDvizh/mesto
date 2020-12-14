@@ -2,10 +2,10 @@ import {showPopupPhoto} from './utils.js';
 
 
 export default class Card {
-  constructor(title, link) {
+  constructor(title, link, templateSelector) {
     this._name = title;
     this._link = link;
-    this._elementTemplate = document.querySelector('.element-template');
+    this._elementTemplate = document.querySelector(templateSelector);
   }
 
   //добавление карточки в DOM
