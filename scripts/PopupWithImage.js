@@ -8,7 +8,7 @@ export default class PopupWithImage extends Popup {
     this._src = item.src;
     this._alt = item.textContent;
   }
-
+  //открытие поп-апа большой картинки
   open() {
     this._photo.src = this._src;
     this._title.textContent = this._alt;

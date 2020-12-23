@@ -7,20 +7,20 @@ export default class Popup {
 
     this.setEventListeners();
   }
-
+  //открытие поп-апов
   open() {
     this._popupForm.classList.add('popup_opened');
 
     document.addEventListener("keydown", this._handlerEsc);
   }
-
+  //закрытие поп-апов
   close() {
     this._popupForm.classList.remove('popup_opened');
 
     document.removeEventListener("keydown", this._handlerEsc);
   }
-
-  _handleEscClose() {
+  //закрытие на кнопку ESC
+  _handleEscClose(evt) {
     if (evt.key === "Escape") {
         this.close();
     }

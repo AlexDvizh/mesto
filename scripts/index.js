@@ -1,6 +1,5 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-//import {openPopup, closePopup} from './utils.js';
 import Section from './Section.js';
 import PopupWithForm from './PopupWithForm.js';
 import PopupWithImage from './PopupWithImage.js';
@@ -58,6 +57,7 @@ const validationConfig = {
   submitButtonSelector: '.popup__form-save',
   buttonInvalidClass: 'popup__form-save_type_off'
 }; 
+
 
 
 //открытие поп-апа профиля
