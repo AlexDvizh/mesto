@@ -1,5 +1,3 @@
-import {showPopupPhoto} from './utils.js';
-
 
 export default class Card {
   constructor(title, link, templateSelector) {

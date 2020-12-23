@@ -1,6 +1,9 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import {openPopup, closePopup} from './utils.js';
+//import {openPopup, closePopup} from './utils.js';
+import Section from './Section.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
 
 const popupProfile = document.querySelector('.popup_type_edit');
 const popupPhotoAdd = document.querySelector('.popup_type_add');
@@ -18,8 +21,9 @@ const addPlaceForm = document.querySelector('.popup__form_add-place');
 const popupTypeOpen = document.querySelector('.popup_type_open');
 const popupCloseImg = document.querySelector('.popup__close-img');
 const popupAddButton = document.querySelector('.popup__form-save_type_add');
-const inputTypePhotoName = document.querySelector('.popup__input_type_photo-name');
-const inputTypePhotoLink = document.querySelector('.popup__input_type_link-photo');
+// const inputTypePhotoName = document.querySelector('.popup__input_type_photo-name');
+// const inputTypePhotoLink = document.querySelector('.popup__input_type_link-photo');
+// const elementTemplate = document.querySelector('.element-template');
 
 const initialCards = [ 
   { 
@@ -97,26 +101,26 @@ popupForm.addEventListener('submit', submitForm);
 
 
 //функция добавления новой карточки на страницу
-function handleSubmitAddPlaceForm(event) {
-  event.preventDefault();
+// function handleSubmitAddPlaceForm(event) {
+//   event.preventDefault();
 
-  const name = inputTypePhotoName.value;
-  const link = inputTypePhotoLink.value;
-  const placeCard = new Card(name, link, ".element-template").generateCard();
+//   const name = inputTypePhotoName.value;
+//   const link = inputTypePhotoLink.value;
+//   const placeCard = new Card(name, link, elementTemplate).generateCard();
 
-  elementsList.prepend(placeCard);
+//   elementsList.prepend(placeCard);
 
-  closePopup(popupPhotoAdd);
-}
+//   closePopup(popupPhotoAdd);
+// }
 
-addPlaceForm.addEventListener('submit', handleSubmitAddPlaceForm);
+// addPlaceForm.addEventListener('submit', handleSubmitAddPlaceForm);
 
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '.element-template');
-  const cardElement = card.generateCard();
+// initialCards.forEach((item) => {
+//   const card = new Card(item.name, item.link, elementTemplate);
+//   const cardElement = card.generateCard();
 
-  elementsList.prepend(cardElement);
-});
+//   elementsList.prepend(cardElement);
+// });
 
 
 //функция закрытия поп-апов при клике за пределами поп-апа
@@ -132,9 +136,25 @@ popupProfile.addEventListener('mousedown', closePopupOnClick );
 popupPhotoAdd.addEventListener('mousedown', closePopupOnClick );
 popupTypeOpen.addEventListener('mousedown', closePopupOnClick );
 
+
+
 const profileFormValidator = new FormValidator(validationConfig, popupForm);
 profileFormValidator.enableValidation();
 
 const placeFormValidator = new FormValidator(validationConfig, addPlaceForm);
 placeFormValidator.enableValidation();
 
+
+const cardsList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    // const name = inputTypePhotoName.value;
+    // const link = inputTypePhotoLink.value;
+    // console.log(link);
+    const placeCard = new Card(item.name, item.link, '.element-template').generateCard();
+    
+    cardsList.addItem(placeCard);
+  },
+}, '.elements');
+
+cardsList.renderItems();
