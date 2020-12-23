@@ -158,3 +158,15 @@ const cardsList = new Section({
 }, '.elements');
 
 cardsList.renderItems();
+
+const classPopupProfile = new PopupWithForm({
+  popupSelector: '.popup_type_edit',
+  handleFormSubmit: (element) => {
+    
+  }
+
+
+}
+
+
+)
