@@ -1,47 +1,58 @@
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
-
 export default class Popup {
-  constructor(popupSelector) {
-    this._popupSelector = popupSelector;
-    this._popupForm = document.querySelector(this._popupSelector);
-    this._closeButton = this._popupForm.querySelector('.popup__close');
-    this._handlerEsc = this._handleEscClose.bind(this);
-    this.setEventListeners();
-  }
-  //открытие поп-апов
-  open() {
-    this._popupForm.classList.add('popup_opened');
 
-    document.addEventListener("keydown", this._handlerEsc);
-  }
-  //закрытие поп-апов
-  close() {
-    this._popupForm.classList.remove('popup_opened');
+  eventListeners = [];
 
-    document.removeEventListener("keydown", this._handlerEsc);
-  }
+  _closeButtonClickHandler = () => {
+    this.close();
+  };
+
+  _overlayClickHandler = (evt) => {
+    if (evt.target.classList.contains("popup")) {
+      this.close();
+    }
+  };
+
   //закрытие на кнопку ESC
-  _handleEscClose(evt) {
+  _handleEscClose = (evt) => {
     if (evt.key === "Escape") {
         this.close();
     }
   }
 
+  constructor(popupSelector) {
+    this._popupForm = document.querySelector(popupSelector);
+    this._closeButton = this._popupForm.querySelector('.popup__close');
+
+    this.setEventListeners();
+  }
+  //открытие поп-апов
+  open() {
+    this._popupForm.classList.add('popup_opened');
+  }
+  //закрытие поп-апов
+  close() {
+    this._popupForm.classList.remove('popup_opened');
+    this._removeListeners();
+  }
+
   setEventListeners() {
-    this._closeButton.addEventListener("click", () => {
-        this.close();
-      });
-    editButton.addEventListener('click', () => {
-      this.open();
+    this.addListener(this._closeButton, 'click', this._closeButtonClickHandler);
+    this.addListener(this._popupForm, 'click', this._overlayClickHandler);
+    this.addListener(document, 'keydown', this._handleEscClose);
+  }
+
+  addListener(element, eventType, handlerFn) {
+    element.addEventListener(eventType, handlerFn);
+    this.eventListeners.push({
+      element,
+      eventType,
+      handlerFn
     });
-    addButton.addEventListener('click', () => {
-      this.open();
-    });
-    this._popupForm.addEventListener("click", (evt) =>{
-      if (evt.target.classList.contains("popup")) {
-          this.close();
-      }      
-    });
+  }
+
+  _removeListeners() {
+    this.eventListeners.forEach(item => {
+      item.element.removeEventListener(item.eventType, item.handlerFn);
+    })
   }
 }
