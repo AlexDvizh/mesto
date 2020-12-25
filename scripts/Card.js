@@ -1,15 +1,16 @@
 
 export default class Card {
-  constructor(title, link, templateSelector) {
+  constructor({title, link, templateSelector, handleCardClick}) {
     this._name = title;
     this._link = link;
     this._elementTemplate = document.querySelector(templateSelector);
+    this._handleCardClick = handleCardClick;
   }
 
   //добавление карточки в DOM
   _getTemplate() {
     const cardElement = this._elementTemplate.content.querySelector('.element').cloneNode(true);
-
+    
     return cardElement;
   }
   
@@ -41,8 +42,6 @@ export default class Card {
   _setEventListeners() {
     this._element.querySelector('.element__delete').addEventListener('click', this._deleteClickHandler);
     this._element.querySelector('.element__desc-like').addEventListener('click', this._likeClickHandler);
-    this._element.querySelector('.element__photo').addEventListener('click', (evt) => {
-      showPopupPhoto(evt);
-    });
+    this._element.querySelector('.element__photo').addEventListener('click', this._handleCardClick);
   }
 }

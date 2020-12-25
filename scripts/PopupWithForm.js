@@ -6,7 +6,7 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._element = this._popupForm.querySelector('.popup__form');
 
-    this.setEventListeners();
+    this._setEventListeners();
   }
   //закрытие поп-апа и сброс формы
   close() {
@@ -24,7 +24,7 @@ export default class PopupWithForm extends Popup {
     return this._inputsValue;
   }
   //обработчик кнопки сабмита формы
-  setEventListeners() {
+  _setEventListeners() {
     this._element.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());

@@ -1,10 +1,12 @@
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+
 export default class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
     this._popupForm = document.querySelector(this._popupSelector);
-    this._closeButton = this._popupForm.querySelector(".popup__close");
-    this._handlerEsc = this._handleEscClose(this);
-
+    this._closeButton = this._popupForm.querySelector('.popup__close');
+    this._handlerEsc = this._handleEscClose.bind(this);
     this.setEventListeners();
   }
   //открытие поп-апов
@@ -30,6 +32,12 @@ export default class Popup {
     this._closeButton.addEventListener("click", () => {
         this.close();
       });
+    editButton.addEventListener('click', () => {
+      this.open();
+    });
+    addButton.addEventListener('click', () => {
+      this.open();
+    });
     this._popupForm.addEventListener("click", (evt) =>{
       if (evt.target.classList.contains("popup")) {
           this.close();
