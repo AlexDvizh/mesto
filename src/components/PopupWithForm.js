@@ -1,12 +1,20 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
+
+  submitFormHandler = (evt) => {
+    evt.preventDefault();
+    this._handleFormSubmit(this._getInputValues());
+
+    this.close();
+  }
+
   constructor({handleFormSubmit, popupSelector}) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._element = this._popupForm.querySelector('.popup__form');
 
-    this.setEventListeners();
+    this._setEventListeners();
   }
   //закрытие поп-апа и сброс формы
   close() {
@@ -15,7 +23,7 @@ export default class PopupWithForm extends Popup {
   }
   //сбор данных всех полей формы
   _getInputValues() {
-    this._inputList = this._element.querySelector('.popup__input');
+    this._inputList = this._element.querySelectorAll('.popup__input');
     this._inputsValue = {};
     this._inputList.forEach(input => {
       this._inputsValue[input.name] = input.value;
@@ -24,12 +32,7 @@ export default class PopupWithForm extends Popup {
     return this._inputsValue;
   }
   //обработчик кнопки сабмита формы
-  setEventListeners() {
-    this._element.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
-
-      this.close();
-    });
+  _setEventListeners() {
+    this.addListener(this._element, 'submit', this.submitFormHandler);
   }
 }
