@@ -17,10 +17,10 @@ export default class FormValidator {
   _setButtonState = (button, isActive, config) => {
     if (isActive) {
       button.classList.remove(config.buttonInvalidClass);
-      button.disabled = true;
+      button.disabled = false;
     } else {
       button.classList.add(config.buttonInvalidClass);
-      button.disabled = false;
+      button.disabled = true;
     }
   }
 
