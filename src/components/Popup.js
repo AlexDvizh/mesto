@@ -1,4 +1,10 @@
 export default class Popup {
+  constructor(popupSelector) {
+    this._popupForm = document.querySelector(popupSelector);
+    this._closeButton = this._popupForm.querySelector('.popup__close');
+
+    this.setEventListeners();
+  }
 
   eventListeners = [];
 
@@ -16,13 +22,6 @@ export default class Popup {
     if (evt.key === "Escape") {
         this.close();
     }
-  }
-
-  constructor(popupSelector) {
-    this._popupForm = document.querySelector(popupSelector);
-    this._closeButton = this._popupForm.querySelector('.popup__close');
-
-    this.setEventListeners();
   }
   
   open() {

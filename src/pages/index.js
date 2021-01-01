@@ -18,37 +18,38 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 
+const popupCardAddForm = new PopupWithForm(
+  {
+    handleFormSubmit(formValue) {
+      const cardConfig = {
+        name: formValue.namePhoto,
+        link: formValue.linkPhoto
+      };
+      const placeCard = createCard(cardConfig);
+      cardsList.addItem(placeCard);
+    },
+    popupSelector: POPUP_TYPE_ADD_SELECTOR
+  }
+);
 
 addButton.addEventListener('click', () => {
-  const popup = new PopupWithForm(
-    {
-      handleFormSubmit(formValue) {
-        const cardConfig = {
-          name: formValue.namePhoto,
-          link: formValue.linkPhoto
-        };
-        const placeCard = createCard(cardConfig);
-        cardsList.addItem(placeCard);
-      },
-      popupSelector: POPUP_TYPE_ADD_SELECTOR
-    }
-  );
-  popup.open();
+  popupCardAddForm.open();
 });
 
+const popupProfileForm = new PopupWithForm(
+  {
+    handleFormSubmit: (formValue) => {
+      userProfile.setUserInfo(
+        formValue.userName,
+        formValue.userJob
+      );
+    },
+    popupSelector: POPUP_TYPE_EDIT_SELECTOR
+  }
+);
+
 editButton.addEventListener('click', () => {
-  const popup = new PopupWithForm(
-    {
-      handleFormSubmit: (formValue) => {
-        userProfile.setUserInfo(
-          formValue.userName,
-          formValue.userJob
-        );
-      },
-      popupSelector: POPUP_TYPE_EDIT_SELECTOR
-    }
-  );
-  popup.open();
+  popupProfileForm.open();
 });
 
 const profileFormValidator = new FormValidator(validationConfig, popupForm);
@@ -57,7 +58,7 @@ profileFormValidator.enableValidation();
 const placeFormValidator = new FormValidator(validationConfig, addPlaceForm);
 placeFormValidator.enableValidation();
 
-
+const popupWithImage = new PopupWithImage('.popup_type_open');
 
 function createCard(item) {
   const card = new Card({
@@ -69,8 +70,7 @@ function createCard(item) {
       objImg.link = event.target.src;
       objImg.name = event.target.closest('.element').querySelector('.element__desc-title').textContent;
 
-      const popupWithImage = new PopupWithImage(objImg , '.popup_type_open');
-      popupWithImage.open();
+      popupWithImage.open(objImg);
     }
   });
 
