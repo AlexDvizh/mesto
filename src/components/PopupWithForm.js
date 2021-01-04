@@ -33,6 +33,6 @@ export default class PopupWithForm extends Popup {
   }
   //обработчик кнопки сабмита формы
   _setEventListeners() {
-    this.addListener(this._element, 'submit', this.submitFormHandler);
+    this._element.addEventListener('submit', this.submitFormHandler);
   }
 }
