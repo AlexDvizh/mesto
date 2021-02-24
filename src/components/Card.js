@@ -1,8 +1,9 @@
 
 export default class Card {
-  constructor({title, link, templateSelector, handleCardClick}) {
+  constructor({title, link, likes, templateSelector, handleCardClick}) {
     this._name = title;
     this._link = link;
+    this._likes = likes;
     this._elementTemplate = document.querySelector(templateSelector);
     this._handleCardClick = handleCardClick;
   }
@@ -12,6 +13,10 @@ export default class Card {
     const cardElement = this._elementTemplate.content.querySelector('.element').cloneNode(true);
     
     return cardElement;
+  }
+
+  _checkLike() {
+    this._element.querySelector('.element__like_counter').textContent = this._likes.length;
   }
   
   //создание DOM елемента карточки
@@ -25,6 +30,7 @@ export default class Card {
 
     this._setEventListeners();
 
+    this._checkLike();
     return this._element;
   }
 

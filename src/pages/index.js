@@ -40,21 +40,9 @@ api
     const cardsList = new Section({
       items: data,
       renderer: (item) => {
-        const card = new Card({
-          title: item.name,
-          link: item.link,
-          templateSelector: '.element-template',
-          handleCardClick: (event) => {
-          
-            const objImg = {};
-            objImg.link = event.target.src;
-            objImg.name = event.target.closest('.element').querySelector('.element__desc-title').textContent;
-
-            popupWithImage.open(objImg);
-          }
-        });
+        const card = createCard(item);
         
-        cardsList.addItemAppend(card.generateCard());
+        cardsList.addItemAppend(card);
       },
     }, '.elements', api);   
     cardsList.renderItems();
@@ -65,10 +53,10 @@ api
       const popupCardAddForm = new PopupWithForm({
         handleFormSubmit: (data) => {
           const cardConfig = {
-                name: data.namePhoto,
-                link: data.linkPhoto
+            name: data.namePhoto,
+            link: data.linkPhoto,
           };
-
+          
           api.addNewCard(cardConfig);
 
           const placeCard = createCard(cardConfig);
@@ -161,6 +149,7 @@ function createCard(item) {
   const card = new Card({
     title: item.name,
     link: item.link,
+    likes: item.likes,
     templateSelector: '.element-template',
     handleCardClick: (event) => {
      
