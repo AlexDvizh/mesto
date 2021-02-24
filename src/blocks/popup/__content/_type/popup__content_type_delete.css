@@ -1,0 +1,10 @@
+.popup__content_type_delete {
+  min-width: 430px;
+  max-height: 181px;
+}
+
+@media (max-width: 767px) {
+  .popup__content_type_delete {
+    min-width: 200px;
+  }
+}

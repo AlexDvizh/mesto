@@ -66,7 +66,10 @@
         </div>  
         <div class="element__desc">
           <h2 class="element__desc-title">Карачаевск</h2>
-          <button class="element__desc-like" type="button"><img src="<%=require('./images/heart.svg')%>" alt="Иконка сердца"></button>
+          <div class="element__like">
+            <button class="element__desc-like" type="button"><img src="<%=require('./images/heart.svg')%>" alt="Иконка сердца"></button>
+            <p class="element__like_counter">0</p>
+          </div>
         </div>
       </article>
     </template>
@@ -77,6 +80,28 @@
         <button type="button" class="popup__close popup__close-img"></button>
         <h3 class="popup__img-title"></h3>
       </form>
+    </div>
+
+    <div class="popup popup_type_delete-card">
+      <div class="popup__content popup__content_type_delete">
+        <button type="button" class="popup__close popup__close-delete"></button>
+        <form name="cardDelete" class="popup__form popup__form_delete">
+          <h3 class="popup__form-title">Вы уверены?</h3>
+          <button type="submit" class="popup__form-save popup__form-save_type_delete">Да</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_change-avatar">
+      <div class="popup__content popup__content_type_avatar">
+        <button type="button" class="popup__close popup__close-avatar"></button>
+        <form name="changeAvatar" class="popup__form popup__form_change-avatar">
+          <h3 class="popup__form-title popup__form-title_avatar">Обновить аватар</h3>
+          <input id="link-avatar" name="linkAvatar" class="popup__input popup__input_type_link-avatar" type="url" placeholder="Ссылка на аватар" required>
+          <span id="link-avatar-error" class="popup__error"></span>
+          <button type="submit" class="popup__form-save popup__form-save_type_avatar">Сохранить</button> 
+        </form>
+      </div>
     </div>
 
   </div>

@@ -11,7 +11,7 @@ export default class UserInfo {
     return {userName, userInfo};
   }
   //принимает введённые данные
-  setUserInfo(userName, userInfo) {
+  setUserInfo({userName, userInfo}) {
     this._name.textContent = userName;
     this._info.textContent = userInfo;
   }

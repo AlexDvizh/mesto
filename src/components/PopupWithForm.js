@@ -9,10 +9,11 @@ export default class PopupWithForm extends Popup {
     this.close();
   }
 
-  constructor({handleFormSubmit, popupSelector}) {
+  constructor({handleFormSubmit, popupSelector}, api) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._element = this._popupForm.querySelector('.popup__form');
+    this._api = api;
 
     this._setEventListeners();
   }
