@@ -22,7 +22,7 @@ export default class Card {
   }
 
   _trashClick = () => {
-    this._handleDeleteClick(this);
+    this._handleDeleteClick(this._cardId);
   }
   
   //создание DOM елемента карточки
@@ -54,7 +54,6 @@ export default class Card {
 
   _setEventListeners() {
     this._elementDelete.addEventListener('click', this._trashClick);
-    //this._element.querySelector('.element__delete').addEventListener('click', this._deleteClickHandler);
     this._element.querySelector('.element__desc-like').addEventListener('click', this._likeClickHandler);
     this._element.querySelector('.element__photo').addEventListener('click', this._handleCardClick);
   }

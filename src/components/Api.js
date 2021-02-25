@@ -84,8 +84,8 @@ export default class Api {
     });
   }
 
-  deleteCard(object) {
-    return fetch(`${this._address}cards/${object.cardId}`, {
+  deleteCard(cardId) {
+    return fetch(`${this._address}cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token

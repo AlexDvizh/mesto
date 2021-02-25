@@ -128,12 +128,12 @@ popupAvatarEditButton.addEventListener('click', popupAvatarOpen);
 
 //подтверждение удаления карточки
 const popupDeleteConfirm = new PopupWithForm({
-  handleFormSubmit: (object) => {
-    console.log(object);
+  handleFormSubmit: (item) => {
+    console.log(item)
     api
-      .deleteCard(object.cardObject)
-      .then((res) => {
-        popupDeleteConfirm.cardObject.deleteCard();
+      .deleteCard(popupDeleteConfirm.cardObject)
+      .then(() => {
+        //применить deleteCard() из класса Card;
         popupDeleteConfirm.close();
       })
       .catch((err) => {
