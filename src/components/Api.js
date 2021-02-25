@@ -67,6 +67,32 @@ export default class Api {
       return this._getResponse(res);
     });
   }
+  //запрос изменения фотографии аватара
+  setUserAvatar(data) {
+    return fetch(`${this._address}users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: data.linkAvatar
+      })
+    }) 
+    .then((res) => {
+      return this._getResponse(res);
+    });
+  }
 
-  
+  deleteCard(object) {
+    return fetch(`${this._address}cards/${object.cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then((res) => {
+      return this._getResponse(res);
+    });
+  }
 }

@@ -3,10 +3,14 @@ import './index.css';
 import {
   editButton,
   addButton,
+  popupAvatarEditButton,
   popupForm,
   addPlaceForm,
+  popupAvatarForm,
   POPUP_TYPE_ADD_SELECTOR,
   POPUP_TYPE_EDIT_SELECTOR,
+  POPUP_TYPE_AVATAR,
+  POPUP_TYPE_DELETE,
   avatar,
   validationConfig,
 } from '../utils/constants.js';
@@ -17,7 +21,6 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
-import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import Api from '../components/Api.js';
 
 const api = new Api({
@@ -31,7 +34,8 @@ const api = new Api({
 const userProfile = new UserInfo({
   name: '.profile__title',
   info: '.profile__subtitle',
-});
+  avatar: '.profile__avatar'
+})
 
 //получение карточек от сервера и добавление новой карточки на сервер
 api
@@ -100,6 +104,47 @@ api
   });
 })
 
+//редактирование аватара профиля
+const popupAvatar = new PopupWithForm({
+  handleFormSubmit: (data) => {
+    api
+      .setUserAvatar(data)
+      .then((res) => {
+        userProfile.setUserAvatar(res.avatar);
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log(err);
+    });
+  },
+  popupSelector: POPUP_TYPE_AVATAR
+});
+
+function popupAvatarOpen() {
+  popupAvatar.open()
+}
+
+popupAvatarEditButton.addEventListener('click', popupAvatarOpen);
+
+//подтверждение удаления карточки
+const popupDeleteConfirm = new PopupWithForm({
+  handleFormSubmit: (object) => {
+    console.log(object);
+    api
+      .deleteCard(object.cardObject)
+      .then((res) => {
+        popupDeleteConfirm.cardObject.deleteCard();
+        popupDeleteConfirm.close();
+      })
+      .catch((err) => {
+        console.log(err);
+    });
+  },
+  popupSelector: POPUP_TYPE_DELETE
+});
+
+
+
 //   const popupCardAddForm = new PopupWithForm(
 // //   // {
 // //     // handleFormSubmit(item) {
@@ -143,6 +188,9 @@ profileFormValidator.enableValidation();
 const placeFormValidator = new FormValidator(validationConfig, addPlaceForm);
 placeFormValidator.enableValidation();
 
+const avatarFormValidator = new FormValidator(validationConfig, popupAvatarForm);
+avatarFormValidator.enableValidation();
+
 const popupWithImage = new PopupWithImage('.popup_type_open');
 
 function createCard(item) {
@@ -150,6 +198,7 @@ function createCard(item) {
     title: item.name,
     link: item.link,
     likes: item.likes,
+    cardId: item._id,
     templateSelector: '.element-template',
     handleCardClick: (event) => {
      
@@ -158,6 +207,10 @@ function createCard(item) {
       objImg.name = event.target.closest('.element').querySelector('.element__desc-title').textContent;
 
       popupWithImage.open(objImg);
+    },
+    handleDeleteClick: (cardObject) => {
+      popupDeleteConfirm.cardObject = cardObject;
+      popupDeleteConfirm.open();
     }
   });
 
@@ -174,21 +227,3 @@ function createCard(item) {
 // }, '.elements');
 
 // cardsList.renderItems();
-
-
-
-
-// const deleteButton = document.querySelector('.element__delete');
-// const popupSubmitDelete = document.querySelector('.popup_type_delete-card');
-
-// // deleteButton.addEventListener('click', () => {
-// //   popupSubmitDelete.open();
-// // })
-
-//  const submitDelete = new PopupWithSubmit({
-//   handleFormSubmit: () => {
-//     deleteButton.addEventListener('click', () => {
-//       popupSubmitDelete.open();
-//     })
-//   },
-//   popupSelector: '.popup_type_delete-card'});

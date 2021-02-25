@@ -2,10 +2,14 @@
 
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
+export const popupAvatarEditButton = document.querySelector('.profile__avatar_button_edit');
 export const popupForm = document.querySelector('.popup__form');
 export const addPlaceForm = document.querySelector('.popup__form_add-place');
+export const popupAvatarForm = document.querySelector('.popup__form_change-avatar');
 export const POPUP_TYPE_ADD_SELECTOR = '.popup_type_add';
 export const POPUP_TYPE_EDIT_SELECTOR = '.popup_type_edit';
+export const POPUP_TYPE_AVATAR = '.popup_type_change-avatar';
+export const POPUP_TYPE_DELETE = '.popup_type_delete-card';
 export let avatar = document.querySelector('.profile__avatar');
 
 export const validationConfig = {

@@ -1,0 +1,15 @@
+.profile__avatar_button_edit {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  max-width: 120px;
+  opacity: 0;
+}
+
+.profile__avatar_button_edit:hover {
+  background-image: url('../../../../images/pen-big.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1;
+}

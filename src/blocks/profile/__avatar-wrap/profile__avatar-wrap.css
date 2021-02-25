@@ -1,0 +1,7 @@
+.profile__avatar-wrap {
+  position: relative;
+}
+
+.profile__avatar-wrap:hover {
+  opacity: 0.7;
+}

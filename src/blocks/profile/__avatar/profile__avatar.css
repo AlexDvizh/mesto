@@ -5,6 +5,10 @@
   object-fit: cover;
 }
 
+.profile__avatar:hover {
+  opacity: 0.7;
+}
+
 @media (max-width: 767px) {
   .profile__avatar {
     margin: 0 auto;
