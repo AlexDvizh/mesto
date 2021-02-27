@@ -1,4 +1,4 @@
-.profile__avatar_button_edit {
+.profile__avatar_button-edit {
   position: absolute;
   bottom: 0px;
   width: 100%;
@@ -7,7 +7,7 @@
   opacity: 0;
 }
 
-.profile__avatar_button_edit:hover {
+.profile__avatar_button-edit:hover {
   background-image: url('../../../../images/pen-big.svg');
   background-repeat: no-repeat;
   background-position: center;

@@ -2,7 +2,7 @@
 
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
-export const popupAvatarEditButton = document.querySelector('.profile__avatar_button_edit');
+export const popupAvatarEditButton = document.querySelector('.profile__avatar_button-edit');
 export const popupForm = document.querySelector('.popup__form');
 export const addPlaceForm = document.querySelector('.popup__form_add-place');
 export const popupAvatarForm = document.querySelector('.popup__form_change-avatar');
