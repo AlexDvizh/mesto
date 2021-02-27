@@ -67,6 +67,7 @@ export default class Api {
       return this._getResponse(res);
     });
   }
+
   //запрос изменения фотографии аватара
   setUserAvatar(data) {
     return fetch(`${this._address}users/me/avatar`, {
@@ -84,8 +85,35 @@ export default class Api {
     });
   }
 
+  //запрос на удаление карточки
   deleteCard(cardId) {
     return fetch(`${this._address}cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then((res) => {
+      return this._getResponse(res);
+    });
+  }
+
+  //запрос на лайк карточки
+  likeCard(cardId) {
+    return fetch(`${this._address}cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then((res) => {
+      return this._getResponse(res);
+    });
+  }
+
+  //запрос на удаление лайка карточки
+  deleteLikeCard(cardId) {
+    return fetch(`${this._address}cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token

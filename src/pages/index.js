@@ -1,4 +1,3 @@
-
 import './index.css';
 import {
   editButton,
@@ -45,7 +44,6 @@ api
       items: data,
       renderer: (item) => {
         const card = createCard(item);
-        
         cardsList.addItemAppend(card);
       },
     }, '.elements', api);   
@@ -107,6 +105,8 @@ api
 //редактирование аватара профиля
 const popupAvatar = new PopupWithForm({
   handleFormSubmit: (data) => {
+    const textOnButton = popupAvatar.hideLoadingText();
+    popupAvatar.showLoadingText('Сохранение...');
     api
       .setUserAvatar(data)
       .then((res) => {
@@ -115,6 +115,9 @@ const popupAvatar = new PopupWithForm({
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupAvatar.showLoadingText(textOnButton);
     });
   },
   popupSelector: POPUP_TYPE_AVATAR
@@ -128,12 +131,11 @@ popupAvatarEditButton.addEventListener('click', popupAvatarOpen);
 
 //подтверждение удаления карточки
 const popupDeleteConfirm = new PopupWithForm({
-  handleFormSubmit: (item) => {
-    console.log(item)
+  handleFormSubmit: () => {
     api
-      .deleteCard(popupDeleteConfirm.cardObject)
+      .deleteCard(popupDeleteConfirm.cardObject._cardId)
       .then(() => {
-        //применить deleteCard() из класса Card;
+        popupDeleteConfirm.cardObject.delCard();
         popupDeleteConfirm.close();
       })
       .catch((err) => {
@@ -143,62 +145,28 @@ const popupDeleteConfirm = new PopupWithForm({
   popupSelector: POPUP_TYPE_DELETE
 });
 
-
-
-//   const popupCardAddForm = new PopupWithForm(
-// //   // {
-// //     // handleFormSubmit(item) {
-
-// //     // handleFormSubmit(formValue) {
-// //     //   const cardConfig = {
-// //     //     name: formValue.namePhoto,
-// //     //     link: formValue.linkPhoto
-// //     //   };
-    
-      
-// // //     const placeCard = createCard(cardConfig);
-// // //     cardsList.addItem(placeCard); //cardsList заменил на cards
-// // //     },
-// // //     popupSelector: POPUP_TYPE_ADD_SELECTOR
-// // //   }
-// );
-
-// addButton.addEventListener('click', () => {
-//   popupCardAddForm.open();
-// });
-
-// const popupProfileForm = new PopupWithForm(
-//   {
-//     handleFormSubmit: (formValue) => {
-//       userProfile.setUserInfo(
-//         formValue.userName,
-//         formValue.userJob
-//       );
-//     },
-//     popupSelector: POPUP_TYPE_EDIT_SELECTOR,
-//   });
-
-// editButton.addEventListener('click', () => {
-//   popupProfileForm.open();
-// });
-
+//валидация формы редактирования профиля
 const profileFormValidator = new FormValidator(validationConfig, popupForm);
 profileFormValidator.enableValidation();
 
+//валидация формы добавления карточки
 const placeFormValidator = new FormValidator(validationConfig, addPlaceForm);
 placeFormValidator.enableValidation();
 
+//валидация формы редактировация аватара
 const avatarFormValidator = new FormValidator(validationConfig, popupAvatarForm);
 avatarFormValidator.enableValidation();
 
 const popupWithImage = new PopupWithImage('.popup_type_open');
 
+//функция создания карточки
 function createCard(item) {
   const card = new Card({
     title: item.name,
     link: item.link,
     likes: item.likes,
     cardId: item._id,
+    ownerId: item.owner._id,
     templateSelector: '.element-template',
     handleCardClick: (event) => {
      
@@ -211,19 +179,27 @@ function createCard(item) {
     handleDeleteClick: (cardObject) => {
       popupDeleteConfirm.cardObject = cardObject;
       popupDeleteConfirm.open();
+    },
+    handleLikeClick: (cardId) => {
+      api
+        .likeCard(cardId)
+        .then((res) => {
+          card.updateLikeCard(res.likes);
+          // console.log(res.likes)
+        })
+        .catch((err) => {
+          console.log(err);
+      });
+
+      api
+        .deleteLikeCard(cardId)
+        .then((res) => {
+          card.updateLikeCard(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+      });
     }
   });
-
   return card.generateCard();
 }
-
-// const cardsList = new Section({
-//   items: initialCards,
-//   renderer: (item) => {
-//     const placeCard = createCard(item);
-    
-//     cardsList.addItem(placeCard);
-//   },
-// }, '.elements');
-
-// cardsList.renderItems();
