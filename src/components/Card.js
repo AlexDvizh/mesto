@@ -1,7 +1,7 @@
 import {myId} from '../utils/constants.js';
 
 export default class Card {
-  constructor({title, link, likes, cardId, ownerId, templateSelector, handleCardClick, handleDeleteClick, handleLikeClick}) {
+  constructor({title, link, likes, cardId, ownerId,  templateSelector, handleCardClick, handleDeleteClick, handleLikeClick}) {
     this._name = title;
     this._link = link;
     this._likes = likes;
@@ -27,7 +27,7 @@ export default class Card {
     this._elementLikeButton.classList.toggle('element__desc-like_type_off');
     this._element.querySelector('.element__like_counter').textContent = this._likes.length + (checkElementLike ? 0 : 1);
 
-    this._handleLikeClick(this._cardId);
+    this._handleLikeClick(this._cardId, checkElementLike);
   }
 
   //обновление кол-ва карточек, которые пришли с сервера
@@ -77,15 +77,9 @@ export default class Card {
     this._element = null;
   }
 
-  //лайк карточки
-  // _likeClickHandler = () => {
-  //   this._element.querySelector('.element__desc-like').classList.toggle('element__desc-like_type_off');
-  // }
-
   _setEventListeners() {
     this._elementDelete.addEventListener('click', this._trashClick);
     this._elementLikeButton.addEventListener('click', this.changeLike);
-    // this._element.querySelector('.element__desc-like').addEventListener('click', this._likeClickHandler);
     this._element.querySelector('.element__photo').addEventListener('click', this._handleCardClick);
   }
 }

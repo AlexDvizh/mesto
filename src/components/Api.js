@@ -31,7 +31,10 @@ export default class Api {
         authorization: this._token,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data
+        // name: data.link,
+        // link: data.link
+      )
     })
     .then((res) => {
         return this._getResponse(res);
@@ -98,23 +101,10 @@ export default class Api {
     });
   }
 
-  //запрос на лайк карточки
-  likeCard(cardId) {
-    return fetch(`${this._address}cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._token
-      }
-    })
-    .then((res) => {
-      return this._getResponse(res);
-    });
-  }
-
-  //запрос на удаление лайка карточки
-  deleteLikeCard(cardId) {
-    return fetch(`${this._address}cards/likes/${cardId}`, {
-      method: 'DELETE',
+  //выбор запроса на добавление/удаление лайка исходя из состояния лайка
+  setLikeStatus(cardId, checkElementLike) {                     //Не получилось реализовать добавление/удаление лайка отдельными методами, 
+    return fetch(`${this._address}cards/likes/${cardId}`, {     //без импортированния класса Api в Card. 
+      method: checkElementLike ? 'DELETE' : 'PUT',              //Пришлось использовать объединенный метод
       headers: {
         authorization: this._token
       }

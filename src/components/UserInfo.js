@@ -8,13 +8,15 @@ export default class UserInfo {
   getUserInfo() {
     const userName = this._name.textContent;
     const userInfo = this._info.textContent;
+    const userAvatar = this._avatar.src;
 
-    return {userName, userInfo};
+    return {userName, userInfo, userAvatar};
   }
   //принимает введённые данные
-  setUserInfo({userName, userInfo}) {
+  setUserInfo({userName, userInfo, userAvatar}) {
     this._name.textContent = userName;
     this._info.textContent = userInfo;
+    this._avatar.src = userAvatar;
   }
   //заменяет аватар
   setUserAvatar(userAvatar){
