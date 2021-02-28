@@ -18,30 +18,35 @@ export default class Card {
     
     return cardElement;
   }
-
-  //добавление и удаление +1\-1 при клике на лайк
-  changeLike = () => {  
-    const checkElementLike = this._elementLikeButton.classList.contains('element__desc-like_type_off');
-
-    this._elementLikeButton.classList.toggle('element__desc-like_type_off');
-    this._element.querySelector('.element__like_counter').textContent = this._likes.length + (checkElementLike ? 0 : 1);
-
-    //this._handleLikeClick(this._cardId, checkElementLike);
+  
+  setLikes() {
+    this.setLikeStatus();
+    this.setLikeCounter(this._likes.length);
   }
 
-  //обновление кол-ва карточек, которые пришли с сервера
-  updateLikeCard(likesMassive) {
-    this._likes = likesMassive;
-    this._checkLike();
-  }
-
-  //проверка количества лайков у карточек
-  _checkLike() {
-    this._element.querySelector('.element__like_counter').textContent = this._likes.length;
-
-    if (this._likes.findIndex((item) => item._id == this._myId) !== -1) {
-      this._elementLikeButton.classList.add("element__desc-like_type_off");
+  setLikeStatus() {
+    this.liked = this.checkLikeStatus(this._likes, this._myId);
+    if (this.liked) {
+      this._elementLikeButton.classList.add('element__desc-like_type_off');
     }
+  }
+
+  setLikeCounter(likeCount) {
+    this._element.querySelector('.element__like_counter').textContent = likeCount;
+  }
+
+  checkLikeStatus(likes, userId) {
+    return likes.some(like => like._id === userId);
+  }
+
+  handleClickLike = () => {
+    this._handleLikeClick(this._cardId, this.liked);
+  }
+
+  updateLikes(likes) {
+    this.liked = !this.liked;
+    this._elementLikeButton.classList.toggle('element__desc-like_type_off');
+    this.setLikeCounter(likes.length);
   }
 
   //клик на иконку корзины и открытие поп-апа подтверждения
@@ -65,8 +70,8 @@ export default class Card {
     }
 
     this._setEventListeners();
+    this.setLikes();
 
-    this._checkLike();
     return this._element;
   }
 
@@ -78,7 +83,7 @@ export default class Card {
 
   _setEventListeners() {
     this._elementDelete.addEventListener('click', this._trashClick);
-    this._elementLikeButton.addEventListener('click', this.changeLike);
+    this._elementLikeButton.addEventListener('click', this.handleClickLike);
     this._element.querySelector('.element__photo').addEventListener('click', this._handleCardClick);
   }
 }

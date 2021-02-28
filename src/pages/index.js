@@ -211,7 +211,7 @@ function createCard(item) {
       api
         .setLikeStatus(cardId, checkElementLike)
         .then((res) => {
-          card.updateLikeCard(res.likes);
+          card.updateLikes(res.likes);
         })
         .catch((err) => {
           console.log(err);
