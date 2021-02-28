@@ -3,9 +3,11 @@ import {
   editButton,
   addButton,
   popupAvatarEditButton,
-  popupForm,
+  popupFormProfile,
   addPlaceForm,
   popupAvatarForm,
+  inputName,
+  inputJob,
   POPUP_TYPE_ADD_SELECTOR,
   POPUP_TYPE_EDIT_SELECTOR,
   POPUP_TYPE_AVATAR,
@@ -35,9 +37,12 @@ const userProfile = new UserInfo({
   avatar: '.profile__avatar'
 })
 
+let myId = '';
+
 //получение данных пользователя и карточек от сервера
 Promise.all([api.getUserInfoFromServer(), api.getCards()])
   .then((data) =>{
+    myId = data[0]._id;
     userProfile.setUserInfo({
       userName: data[0].name,
       userInfo: data[0].about,
@@ -71,6 +76,7 @@ const popupCardAddForm = new PopupWithForm({
       .then((res) => {
         const placeCard = createCard(res);
         cardsList.addItem(placeCard);
+        popupCardAddForm.close();
       })
       .catch((err) => {
         console.log(err);
@@ -83,6 +89,7 @@ const popupCardAddForm = new PopupWithForm({
   });
 
 addButton.addEventListener('click', () => {
+  //placeFormValidator._setButtonState(addButton, false, validationConfig);
   popupCardAddForm.open();
 });
 
@@ -100,6 +107,7 @@ const popupProfileForm = new PopupWithForm({
           userInfo: data.about,
           userAvatar: data.avatar
         });
+        popupProfileForm.close();
       })
       .catch((err) => {
         console.log(err);
@@ -110,9 +118,15 @@ const popupProfileForm = new PopupWithForm({
   }, popupSelector: POPUP_TYPE_EDIT_SELECTOR,
 });
 
-editButton.addEventListener('click', () => {
-popupProfileForm.open();
-});
+function showPopupProfile() {
+  const data = userProfile.getUserInfo();
+  inputName.value = data.userName;
+  inputJob.value = data.userInfo;
+
+  popupProfileForm.open();
+}
+
+editButton.addEventListener('click', showPopupProfile);
 
 //редактирование аватара профиля
 const popupAvatar = new PopupWithForm({
@@ -158,7 +172,7 @@ const popupDeleteConfirm = new PopupWithForm({
 });
 
 //валидация формы редактирования профиля
-const profileFormValidator = new FormValidator(validationConfig, popupForm);
+const profileFormValidator = new FormValidator(validationConfig, popupFormProfile);
 profileFormValidator.enableValidation();
 
 //валидация формы добавления карточки
@@ -171,7 +185,6 @@ avatarFormValidator.enableValidation();
 
 const popupWithImage = new PopupWithImage('.popup_type_open');
 
-
 //функция создания карточки
 function createCard(item) {
   const card = new Card({
@@ -180,6 +193,7 @@ function createCard(item) {
     likes: item.likes,
     cardId: item._id,
     ownerId: item.owner._id,
+    myId: myId,
     templateSelector: '.element-template',
     handleCardClick: (event) => {
      console.log(item)
@@ -198,7 +212,10 @@ function createCard(item) {
         .setLikeStatus(cardId, checkElementLike)
         .then((res) => {
           card.updateLikeCard(res.likes);
-      })
+        })
+        .catch((err) => {
+          console.log(err);
+      });
     }
   });
   return card.generateCard();

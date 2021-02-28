@@ -1,4 +1,3 @@
-
 export default class FormValidator {
   constructor(config, checkingForm) {
     this._config = config;
@@ -41,6 +40,8 @@ export default class FormValidator {
   _setEventListeners = (form, config) => {
     const inputListValid = form.querySelectorAll(config.inputSelector);
     const editFormButton = form.querySelector(config.submitButtonSelector);
+
+    this._setButtonState(editFormButton, form.checkValidity(), config);
     
     inputListValid.forEach((input) => {
       input.addEventListener('input', () => {

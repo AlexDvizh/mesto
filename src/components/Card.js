@@ -1,12 +1,11 @@
-import {myId} from '../utils/constants.js';
-
 export default class Card {
-  constructor({title, link, likes, cardId, ownerId,  templateSelector, handleCardClick, handleDeleteClick, handleLikeClick}) {
+  constructor({title, link, likes, cardId, ownerId, myId, templateSelector, handleCardClick, handleDeleteClick, handleLikeClick}) {
     this._name = title;
     this._link = link;
     this._likes = likes;
     this._cardId = cardId;
     this._ownerId = ownerId;
+    this._myId = myId;
     this._elementTemplate = document.querySelector(templateSelector);
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
@@ -27,7 +26,7 @@ export default class Card {
     this._elementLikeButton.classList.toggle('element__desc-like_type_off');
     this._element.querySelector('.element__like_counter').textContent = this._likes.length + (checkElementLike ? 0 : 1);
 
-    this._handleLikeClick(this._cardId, checkElementLike);
+    //this._handleLikeClick(this._cardId, checkElementLike);
   }
 
   //обновление кол-ва карточек, которые пришли с сервера
@@ -40,7 +39,7 @@ export default class Card {
   _checkLike() {
     this._element.querySelector('.element__like_counter').textContent = this._likes.length;
 
-    if (this._likes.findIndex((item) => item._id == myId) !== -1) {
+    if (this._likes.findIndex((item) => item._id == this._myId) !== -1) {
       this._elementLikeButton.classList.add("element__desc-like_type_off");
     }
   }
@@ -61,7 +60,7 @@ export default class Card {
     photo.src = this._link;
     photo.alt = this._name;
 
-    if (myId !== this._ownerId) {
+    if (this._myId !== this._ownerId) {
       this._element.querySelector('.element__delete').classList.add('element__delete_disabled');
     }
 
